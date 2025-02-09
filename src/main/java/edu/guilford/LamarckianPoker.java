@@ -1,8 +1,15 @@
 package edu.guilford;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
+/**
+ * The LamarckianPoker class represents a game of Lamarckian Poker.
+ * It provides methods to reset the game, deal cards, make a pool, handle turns, and determine the winner.
+ * @author Cheick Amadou
+ * @version 1.0
+ */
 public class LamarckianPoker {
     private Hand player1Hand;
     private Hand player2Hand;
@@ -10,24 +17,55 @@ public class LamarckianPoker {
     private Deck discard;
     private Deck deck;
     private Random rand = new Random();
-    private int iTurn;
+    //Not specified and unneccesary
+    //private int iTurn;
 
+/**
+     * Constructor to create a new game of Lamarckian Poker.
+     * The game is reset upon initialization.
+     */
     public LamarckianPoker() {
-        reset(true);
+        reset();
     }
 
+/**
+     * Returns the player's hand.
+     *
+     * @return the player's hand
+     */
     public Hand getPlayer1Hand() {
         return player1Hand;
     }
 
+/**
+     * Returns the dealer's hand.
+     *
+     * @return the dealer's hand
+     */
     public Hand getPlayer2Hand() {
         return player2Hand;
     }
 
+/**
+     * Returns the pool of cards.
+     *
+     * @return the pool of cards
+     */
     public Hand getPool() {
         return pool;
     }
 
+/**
+     * Resets the game by creating a new deck and shuffling it.
+    */
+    public void reset( ) {    
+            deck = new Deck();
+            discard = new Deck();
+            discard.clear();
+            deck.shuffle();
+    }
+    // newDeck parameter is not needed
+    /* 
     public void reset(boolean newDeck) {
         if (newDeck) {
             deck = new Deck();
@@ -35,9 +73,12 @@ public class LamarckianPoker {
             discard.clear();
             deck.shuffle();
         }
-        iTurn = 0;
     }
+        */
 
+/**
+     * Deals four cards to both the player and the dealer.
+     */
     public void deal() {
         player1Hand = new Hand();
         player2Hand = new Hand();
@@ -47,6 +88,9 @@ public class LamarckianPoker {
         }
     }
 
+/**
+     * Creates a pool of four cards.
+     */
     public void makePool() {
         pool = new Hand();
         for (int iCard = 0; iCard < 4; iCard++) {
@@ -55,6 +99,11 @@ public class LamarckianPoker {
         // System.out.println("Deck size: " + deck.size());
     }
 
+/**
+     * Handles a turn in the game.
+     *
+     * @return true if the turn was successful, false otherwise
+     */
     public boolean turn() {
         if (player1Hand.size() < 7 || player2Hand.size() < 7) {
             makePool();
@@ -63,7 +112,8 @@ public class LamarckianPoker {
             Card player2Card = player2Hand.getCard(rand.nextInt(player2Hand.size()));
             Hand firstHand, secondHand;
             Card firstCard, secondCard;
-            if (player1Card.getRank().ordinal() > player2Card.getRank().ordinal()) {
+            //No point in doing this if we have a compareTo method
+           /* if (player1Card.getRank().ordinal() > player2Card.getRank().ordinal()) {
                 firstHand = player1Hand;
                 secondHand = player2Hand;
                 firstCard = player1Card;
@@ -87,7 +137,18 @@ public class LamarckianPoker {
                 }
 
             }
-
+            */
+            if (player1Card.compareTo(player2Card) > 0) {
+                firstHand = player1Hand;
+                secondHand = player2Hand;
+                firstCard = player1Card;
+                secondCard = player2Card;
+            } else {
+                firstHand = player2Hand;
+                secondHand = player1Hand;
+                firstCard = player2Card;
+                secondCard = player1Card;
+            }
             ArrayList<Card> poolRemove = new ArrayList<Card>();
 
             for (Card poolCard : pool.getHand()) {
@@ -102,7 +163,9 @@ public class LamarckianPoker {
                 pool.removeCard(poolCard);
             }
             poolRemove.clear();
-            pool.addCard(firstCard);
+            // The card that was played is added to the discard pile not the pool
+            //pool.addCard(firstCard);
+            discard.getDeck().add(firstCard);
             firstHand.removeCard(firstCard);
             for (Card poolCard : pool.getHand()) {
                 if (secondCard.getRank().ordinal() == poolCard.getRank().ordinal() ||
@@ -114,7 +177,9 @@ public class LamarckianPoker {
             for (Card poolCard : poolRemove) {
                 pool.removeCard(poolCard);
             }
-            pool.addCard(secondCard);
+            // The card that was played is added to the discard pile not the pool
+            //pool.addCard(secondCard);
+            discard.getDeck().add(secondCard);
             secondHand.removeCard(secondCard);
             for (Card poolCard : pool.getHand()) {
                 discard.getDeck().add(poolCard);
@@ -127,9 +192,7 @@ public class LamarckianPoker {
                 }
                 discard.clear();
                 // System.out.println("Discard\n" + discard.size());
-            }
-            iTurn++;
-            
+            }            
             return true;
         } else {
             return false;
@@ -137,8 +200,52 @@ public class LamarckianPoker {
 
     }
 
+     /**
+     * Determines the winner of the game based on the best five-card hand.
+     *
+     * @return the winner of the game ("Player 1", "Player 2", or "Tie")
+     */
+    public String getWinner() {
+        int player1BestValue = getBestFiveCardHandValue(player1Hand);
+        int player2BestValue = getBestFiveCardHandValue(player2Hand);
+
+        if (player1BestValue > player2BestValue) {
+            return "Player 1";
+        } else if (player2BestValue > player1BestValue) {
+            return "Player 2";
+        } else {
+            return "Tie";
+        }
+    }
+
+    /**
+     * Evaluates the best five-card hand value for the given hand.
+     *
+     * @param hand the hand to evaluate
+     * @return the best five-card hand value
+     */
+    private int getBestFiveCardHandValue(Hand hand) {
+        // Sort the cards in the hand
+        ArrayList<Card> sortedCards = new ArrayList<>(hand.getHand());
+        Collections.sort(sortedCards);
+
+        // Select the top 5 cards
+        Hand bestFiveCardHand = new Hand();
+        for (int i = 0; i < 5 && i < sortedCards.size(); i++) {
+            bestFiveCardHand.addCard(sortedCards.get(i));
+        }
+
+        // Return the total value of the best five-card hand
+        return bestFiveCardHand.getTotalValue();
+    }
+
     @Override
-    public String toString() {
+    /**
+     * Returns a string representation of the game, including the player's hands and the pool.
+     * @return a string representation of the game
+     */
+    public String toString() 
+    {
         return "\nPlayer 1: \n" + player1Hand + "\nPlayer 2: \n" + player2Hand + "\nPool: " + pool + "\n";
     }
 }
