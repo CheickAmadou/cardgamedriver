@@ -78,7 +78,7 @@
 
 ### Methods
 - **Satisfactory**: The `Deck` class has the `getDeck()`, `clear()`, `build()`, `pick(int i)`, `deal()`, `size()`, and `toString()` methods implemented correctly.
-- **UnSatisfactory**: The `shuffle()` method is implemented correctly but used an inefficient sorting algorithm.
+- **Unsatisfactory**: The `shuffle()` method is implemented correctly but used an inefficient sorting algorithm.
 
 ### Documentation
 - **Unsatisfactory**: There weren't proper Javadoc comments. I fixed this by adding Javadoc comments to the `Deck` class.
