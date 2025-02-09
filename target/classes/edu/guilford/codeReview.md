@@ -429,3 +429,78 @@ The `turn()` method was updated to include a check to ensure that both players h
     }
 ```
 
+# Code Review for CardGameDriver Class
+
+## Driver Program
+
+The driver program is contained in the `CardGameDriver` program. This program performs tests on both the `Blackjack` and `LamarckianPoker` classes. In doing so, it implicitly tests all other classes.
+
+### Blackjack Testing
+
+This testing approach and the `Blackjack` and utility classes are based on [an approach](https://cs.colby.edu/courses/F17/cs231-labs/proj01.php) described by Caitrin Eaton for a Data Structures & Algorithms project at Colby College.
+
+The driver program runs 10000 games of blackjack by instantiating a `Blackjack` object and then using its methods to deal cards, execute player and dealer turns, and evaluate the result. It records for each game whether the dealer wins, the player wins, or there is a tie (which is called a *push*). During the testing, when the deck has fewer than 10 cards, a new deck is used in the game. The number of dealer wins, player wins, and pushes is displayed.
+
+### Lamarckian Poker Testing
+
+The driver program runs one simulated Lamarckian Poker game. It does so by instantiating a `LamarckianPoker` object and dealing hands to the two players. It then has the object execute game turns until the `turn()` method indicates that the game is complete and the hands are ready to be evaluated. The evaluation of the hands and determination of a winner is implemented.
+
+## Evaluation
+
+### Class Implementation
+- **Satisfactory**: The `CardGameDriver` class implements the testing of both the `Blackjack` and `LamarckianPoker` classes.
+
+### Blackjack Testing
+- **Satisfactory**: The driver program runs 10000 games of blackjack, dealing cards, executing player and dealer turns, and evaluating the result.
+- **Satisfactory**: The program records the number of dealer wins, player wins, and pushes.
+- **Satisfactory**: The program resets the deck when it has fewer than 10 cards.
+
+### Lamarckian Poker Testing
+- **Satisfactory**: The driver program runs one simulated Lamarckian Poker game, dealing hands to the two players and executing game turns until the game is complete.
+
+### Code Changes
+- **Lamarckian Poker Games**: The program runs 10001 Lamarckian Poker Games instead of just 1.
+- **Winner Evaluation**: The program evaluates the hands and determines the winner for all of Lamarckian Poker games.
+
+### Code Review
+
+```java
+        // Runs the Lamarckian Poker game
+        LamarckianPoker lmpGame = new LamarckianPoker();
+        lmpGame.deal();
+        System.out.println("\nInitial Lamarckian hands\n" + lmpGame);
+
+        boolean gameDone = false;
+        while (!gameDone) {
+            // System.out.println(lmpGame);
+            gameDone = !lmpGame.turn();
+        }
+
+        // Prints the results of the Lamarckian Poker game
+        System.out.println("Final Lamarckian hands\n" + lmpGame); 
+        System.out.println(lmpGame.getWinner() + " wins the Lamarckian Poker game."); 
+        
+        // Running the Lamarckian Poker game 10000 times
+        int player1Wins = 0;
+        int player2Wins = 0;
+        int ties = 0;
+        for (int i = 0; i < 10000; i++) {
+            LamarckianPoker game1 = new LamarckianPoker();
+            game1.deal();
+            gameDone = false;
+            while (!gameDone) {
+                gameDone = !game1.turn();
+            }
+            if (game1.getWinner().equals("Player 1")) {
+                player1Wins++;
+            } else if (game1.getWinner().equals("Player 2")) {
+                player2Wins++;
+            } else {
+                ties++;
+            }
+        }
+        // Prints the results of the Lamarckian Poker game
+        System.out.println("Player 1 wins: " + player1Wins);
+        System.out.println("Player 2 wins: " + player2Wins);
+        System.out.println("Ties: " + ties);
+    
