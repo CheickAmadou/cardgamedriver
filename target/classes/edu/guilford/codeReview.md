@@ -105,4 +105,113 @@ public void shuffle() {
     // More efficient way to shuffle
     Collections.shuffle(deck,rand);
 }
+```
+
+# Code Review for Hand Class
+
+## Relevant Code Review Items
+
+1. **Class Implementation**
+   - The `Hand` class should represent a hand of playing cards.
+
+2. **Attributes**
+   - The `Hand` class should have a list of `Card` objects.
+
+3. **Methods**
+   - `public void addCard(Card card)` should add a card to the hand.
+   - `public void removeCard(Card card)` should remove a card from the hand.
+   - `public void reset()` should clear all cards from the hand.
+   - `public int size()` should return the number of cards in the hand.
+   - `public Card getCard(int index)` should return the card at the specified index in the hand.
+   - `public int getTotalValue()` should calculate the total value of the hand.
+   - `public String toString()` should return a well-formatted `String` representation of this `Hand` object.
+
+## Evaluation
+
+### Class Implementation
+- **Satisfactory**: The `Hand` class represents a hand of playing cards.
+
+### Attributes
+- **Satisfactory**: The `Hand` class has a list of `Card` objects.
+
+### Methods
+- **Satisfactory**: The `Hand` class has the `addCard(Card card)`, `removeCard(Card card)`, `reset()`, `size()`, `getCard(int index)`, `getTotalValue()`, and `toString()` methods implemented correctly.
+
+### Documentation
+- **Unsatisfactory**: There weren't proper Javadoc comments. I fixed this by adding Javadoc comments to the `Hand` class.
+
+### Code Changes
+- **Javadoc Comments**: Added Javadoc comments to the `Hand` class methods.
+
+# Code Review for Blackjack Class
+
+## Relevant Code Review Items
+
+1. **Class Implementation**
+   - The `Blackjack` class should implement the actions described above.
+
+2. **Attributes**
+   - The `Blackjack` class should have two `Hand` objects for the player and dealer hands.
+   - The `Blackjack` class should have a `Deck` object for the deck to be used in the game.
+
+3. **Constructor**
+   - `public Blackjack()` should use the `reset()` method to prepare the `Deck` object for a new game.
+
+4. **Methods**
+   - `public Hand getPlayerHand()` should return the `Hand` object representing the player's hand.
+   - `public Hand getDealerHand()` should return the `Hand` object representing the dealer's hand.
+   - `public Deck getDeck()` should return the current state of the object's `Deck`.
+   - `public void reset()` should instantiate a new `Deck` object and apply its `shuffle()` method.
+   - `public void deal()` should instantiate two `Hand` objects, assigning them to the appropriate player and dealer attributes. It should then add two `Card` objects from the `Deck` object to each `Hand` object.
+   - `public boolean playerTurn()` should apply the rules described above to the player's hand. It should return `true` if the value of the player's hand is less than or equal to 21 and `false` otherwise.
+   - `public boolean dealerTurn()` should apply the rules described above to the dealer's hand. It should return `true` if the value of the dealer's hand is less than or equal to 21 and `false` otherwise.
+   - `public String toString()` should return a well-formatted `String` representation of this `Blackjack` object.
+
+## Evaluation
+
+### Class Implementation
+- **Satisfactory**: The `Blackjack` class implements the actions described above.
+
+### Attributes
+- **Satisfactory**: The `Blackjack` class has two `Hand` objects for the player and dealer hands.
+- **Satisfactory**: The `Blackjack` class has a `Deck` object for the deck to be used in the game.
+
+### Constructor
+- **Satisfactory**: The `Blackjack` class has the constructor implemented correctly.
+  - `public Blackjack()` uses the `reset()` method to prepare the `Deck` object for a new game.
+
+### Methods
+- **Satisfactory**: The `Blackjack` class has the `getPlayerHand()`, `getDealerHand()`, `getDeck()`, `deal()`, `playerTurn()`, `dealerTurn()`, and `toString()` methods implemented correctly.
+-**Unsatisfactory**: The `Blackjack` class had the `reset()` implemented uncorrectly as it had a boolean input which wasn't neccessary and wasn't specified in the documentation.
+
+### Documentation
+- **Unsatisfactory**: There weren't proper Javadoc comments. I fixed this by adding Javadoc comments to the `Blackjack` class.
+
+### Code Change
+- **Javadoc Comments**: Added Javadoc comments to the `Blackjack` class methods.
+
+### Code Change
+- **Reset Method**: The original `reset(boolean newDeck)` method was unsatisfactory and was commented out. A new `reset()` method was added to reset the deck and shuffle it without any input.
+
+```java
+    // reset method isn't suppose to accept a boolean input, if you call reset() it should reset the deck and shuffle it without any input
+    /* 
+    public void reset(boolean newDeck) {
+        if (newDeck) {
+            deck = new Deck();
+            deck.shuffle();
+        }
+    }
+    */
+
+    /**
+     * Resets the game by creating a new deck and shuffling it.
+     */
+    public void reset() {
+        deck = new Deck();
+        deck.shuffle();
+    }
+```
+
+
 
