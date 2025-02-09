@@ -1,0 +1,41 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+-encoding
+'UTF-8'
+-protected
+-source
+'17'
+-sourcepath
+'C:/Users/cheic/OneDrive/Documents/GitHub/CodeReviewCTIS310/cardgamedriver/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/cheic/OneDrive/Documents/GitHub/CodeReviewCTIS310/cardgamedriver/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'cardgamedriver 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'cardgamedriver 1.0-SNAPSHOT API'
+edu.guilford
+C:\Users\cheic\OneDrive\Documents\GitHub\CodeReviewCTIS310\cardgamedriver\src\main\java = 1738350267519
+C:\Users\cheic\OneDrive\Documents\GitHub\CodeReviewCTIS310\cardgamedriver\target\reports\apidocs\allclasses-index.html = 1739143655777
+C:\Users\cheic\OneDrive\Documents\GitHub\CodeReviewCTIS310\cardgamedriver\target\reports\apidocs\allpackages-index.html = 1739143655781
+C:\Users\cheic\OneDrive\Documents\GitHub\CodeReviewCTIS310\cardgamedriver\target\reports\apidocs\element-list = 1739143655631
+C:\Users\cheic\OneDrive\Documents\GitHub\CodeReviewCTIS310\cardgamedriver\target\reports\apidocs\help-doc.html = 1739143655839
+C:\Users\cheic\OneDrive\Documents\GitHub\CodeReviewCTIS310\cardgamedriver\target\reports\apidocs\index-all.html = 1739143655825
+C:\Users\cheic\OneDrive\Documents\GitHub\CodeReviewCTIS310\cardgamedriver\target\reports\apidocs\index.html = 1739143655833
+C:\Users\cheic\OneDrive\Documents\GitHub\CodeReviewCTIS310\cardgamedriver\target\reports\apidocs\member-search-index.js = 1739143655793
+C:\Users\cheic\OneDrive\Documents\GitHub\CodeReviewCTIS310\cardgamedriver\target\reports\apidocs\module-search-index.js = 1739143655785
+C:\Users\cheic\OneDrive\Documents\GitHub\CodeReviewCTIS310\cardgamedriver\target\reports\apidocs\overview-tree.html = 1739143655749
+C:\Users\cheic\OneDrive\Documents\GitHub\CodeReviewCTIS310\cardgamedriver\target\reports\apidocs\package-search-index.js = 1739143655787
+C:\Users\cheic\OneDrive\Documents\GitHub\CodeReviewCTIS310\cardgamedriver\target\reports\apidocs\search.html = 1739143655830
+C:\Users\cheic\OneDrive\Documents\GitHub\CodeReviewCTIS310\cardgamedriver\target\reports\apidocs\tag-search-index.js = 1739143655796
+C:\Users\cheic\OneDrive\Documents\GitHub\CodeReviewCTIS310\cardgamedriver\target\reports\apidocs\type-search-index.js = 1739143655790
