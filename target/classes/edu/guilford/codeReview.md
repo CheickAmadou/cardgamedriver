@@ -78,7 +78,7 @@
 
 ### Methods
 - **Satisfactory**: The `Deck` class has the `getDeck()`, `clear()`, `build()`, `pick(int i)`, `deal()`, `size()`, and `toString()` methods implemented correctly.
-- **Satisfactory**: The `shuffle()` method is implemented correctly using `Collections.shuffle(deck)` for more efficient shuffling.
+- **UnSatisfactory**: The `shuffle()` method is implemented correctly but used an inefficient sorting algorithm.
 
 ### Documentation
 - **Unsatisfactory**: There weren't proper Javadoc comments. I fixed this by adding Javadoc comments to the `Deck` class.
@@ -267,8 +267,25 @@ sent to the pool hand instead of immediately going to the discard pile which mea
 - **iTurn**: This attribute was unneccesary and wasn't mentioned in the specifications so I removed it.
 - **Reset Method**: The `reset()` method was implemented to create a game with a new shuffled deck and discard pile.
 - **Get Winner Method**: A `getWinner()` method was added to determine the winner of the game based on the best five-card hand.
-- **Best Five-Card Hand Evaluation**: The `getBestFiveCardHandValue(Hand hand)` method was added to evaluate the best five-card hand value for the given hand. First I sorted the cards, then I took the top 5 cards and put them in a hand, and then I found the total value of them.
-- **Turn Method**: First Sacificial card method was fixed. Implemented CompareTo.
+- **Best Five-Card Hand Evaluation**: The `getBestFiveCardHandValue(Hand hand)` method was added to evaluate the best five-card hand value for the given hand. First I sorted the cards, then I took the top 5 cards and put them in a hand, and then I found the total value of them. 
+- **Turn Method**: First Sacificial card method was fixed. Implemented CompareTo. In addition, I also fixed the Illegal Argument Exception coming from this method.
+
+### IllegalArgumentException Issue
+
+#### Problem Description
+When running the program, an `IllegalArgumentException` occasionally occurs in the `LamarckianPoker` class. The error happens the player has zero cards and `rand.nextInt(player1Hand.size())` or `rand.nextInt(player2Hand.size())` is called trying to get a random card.
+
+#### Cause of the Error
+The `IllegalArgumentException` is caused by passing an illegal argument to the `rand.nextInt()` method. This method requires a positive, non zero, integer as an argument. If the size of the player's hand is zero, the argument passed to `rand.nextInt()` will be zero, leading to the exception being thrown.
+
+#### Conditions Leading to the Error
+The error occurs when one or both players have zero cards in their hand. This happens when a player loses all their cards during the game. When the `turn()` method is called, it attempts to get a random card from an empty hand, resulting in the `IllegalArgumentException`.
+
+#### Proposed Fix
+To fix this issue, the `turn()` method should be changed make sure both players have more than zero cards. If a player has zero cards, the game should be considered over, and that player should be declared the loser as there is no way for them to get a card.
+
+#### Code Changes
+The `turn()` method was updated to include a check to ensure that both players have more than zero cards before proceeding with the turn. If either player has zero cards, the game ends.
 
 ```java
     /**
@@ -277,7 +294,7 @@ sent to the pool hand instead of immediately going to the discard pile which mea
      * @return true if the turn was successful, false otherwise
      */
     public boolean turn() {
-        if (player1Hand.size() < 7 || player2Hand.size() < 7) {
+        if (player1Hand.size() < 7 || player2Hand.size() < 7&& player1Hand.size() > 0 && player2Hand.size() > 0) {
             makePool();
             // System.out.println("Turn " + iTurn + "\n" + pool);
             Card player1Card = player1Hand.getCard(rand.nextInt(player1Hand.size()));

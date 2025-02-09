@@ -105,7 +105,8 @@ public class LamarckianPoker {
      * @return true if the turn was successful, false otherwise
      */
     public boolean turn() {
-        if (player1Hand.size() < 7 || player2Hand.size() < 7) {
+        // I changed the condition to also check if the players have more than 0 cards in their hands to get rid of the illegal argument exception.
+        if ((player1Hand.size() < 7||player2Hand.size() < 7) && player1Hand.size() > 0 && player2Hand.size() > 0) {
             makePool();
             // System.out.println("Turn " + iTurn + "\n" + pool);
             Card player1Card = player1Hand.getCard(rand.nextInt(player1Hand.size()));
