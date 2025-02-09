@@ -279,10 +279,10 @@ When running the program, an `IllegalArgumentException` occasionally occurs in t
 The `IllegalArgumentException` is caused by passing an illegal argument to the `rand.nextInt()` method. This method requires a positive, non zero, integer as an argument. If the size of the player's hand is zero, the argument passed to `rand.nextInt()` will be zero, leading to the exception being thrown.
 
 #### Conditions Leading to the Error
-The error occurs when one or both players have zero cards in their hand. This happens when a player loses all their cards during the game. When the `turn()` method is called, it attempts to get a random card from an empty hand, resulting in the `IllegalArgumentException`.
+The error occurs when one or both players have zero cards in their hand. This happens when a player loses all their cards during the game. When the `turn()` method is called, it attempts to get a random card from an empty hand, resulting in the `IllegalArgumentException`. This only happens sometimes because most games a player reaches 7 cards before a player loses all of their cards. However, if a player loses all of their cards this error will occur.
 
 #### Proposed Fix
-To fix this issue, the `turn()` method should be changed make sure both players have more than zero cards. If a player has zero cards, the game should be considered over, and that player should be declared the loser as there is no way for them to get a card.
+To fix this issue, the `turn()` method should be changed make sure both players have more than zero cards. If a player has zero cards, the game should be considered over, and that player should be declared the loser as there is no way for them to get a card. I tested this fix by running this game 10000 times and it seems to have worked.
 
 #### Code Changes
 The `turn()` method was updated to include a check to ensure that both players have more than zero cards before proceeding with the turn. If either player has zero cards, the game ends.
